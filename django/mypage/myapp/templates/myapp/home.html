@@ -1,0 +1,113 @@
+{% load analytical %}
+{{ '<' }}{{ '!DOCTYPE html>' }}
+<html lang="en">
+
+<head>
+    {% analytical_head_top %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>view_image</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    {% analytical_head_bottom %}
+</head>
+
+<body class="m-5">
+    {% analytical_body_top %}
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="card my-2">
+                    <div class="card-header">
+                        Four Perspectives on Space:
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item list-group-item-action active">Introduction</li>
+                        <li class="list-group-item">User Data Input</li>
+                        <li class="list-group-item">Formal</li>
+                        <li class="list-group-item">Sociopolitical</li>
+                        <li class="list-group-item">Phenomenological</li>
+                        <li class="list-group-item">Intuitive</li>
+                        <li class="list-group-item">Final Questions</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if 'information' in message.tags %}
+                            <div class="alert alert-warning" role="alert">
+                                <strong>{{ message }}</strong>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <div class="card my-2">
+                    <div class="card-body">
+                        <div class="card-title"><h4><strong>Introduction:</strong></h4></div>
+                        <div class="card-text">
+                            <p>
+                                Welcome to this experiment. This webpage is designed to conduct an experiment for my Master Thesis.
+                                I have two different research questions. On one hand I want to see how humans interpret the different perspectives
+                                on Space in modern information system research. On the other hand I want to study how humans cooperate
+                                with an AI when they work together with one.
+
+                                <br/> For this, I designed <strong>four different tasks</strong> which are connected to
+                                <strong>four different perspectives on Space</strong><br/>
+                                In each task the participants has to solve 12 image classification tasks (You will see an image,
+                                and you have to guess to which category it belongs to). Overall there are four different groups.
+                                You will be randomly assigned to one. The four groups are:
+                                <br/>
+                                <br/>
+                                - <strong>the baseline group:</strong>
+                                <br/>
+                                You will work by yourself and won't cooperate with the AI.
+                                <br/>
+                                <br/>
+                                - <strong>the human-delegate group:</strong>
+                                <br/>
+                                You will have the possibility to delegate tasks to the AI. You will not see how the AI performs.
+                                <br/>
+                                <br/>
+                                - <strong>the feedback group:</strong>
+                                <br/>
+                                You will have the possibility to delegate tasks to the AI and you will see how the AI performs.
+                                <br/>
+                                <br/>
+                                - <strong>the ai-delegate group:</strong>
+                                <br/>
+                                You will only see pictures that the AI has delegated to you.
+                                You cannot delegate, and you won't see how the AI performs.
+                                <br/>
+                                <br/>
+                                - <strong>the other user delegation group</strong>
+                                <br/>
+                                You will be able to delegate to the AI, and you will see how often other users have
+                                delegated a specific image to the AI.
+                                <br/>
+                                <br/>
+                                The details of the different tasks will be explained once you get to the respective page.
+                                Once you are ready, click the button below. It will redirect you to a page where you have to answer
+                                a couple of short questions about yourself. After this, the experiment will start.
+                                <br/>Thank you very much for your participation!<br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary" type="submit">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% analytical_body_bottom %}
+</body>
+
+</html>

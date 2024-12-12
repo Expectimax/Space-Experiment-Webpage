@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Final Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</head>
+
+<body class="m-5" style="background-color: white">
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="card my-2">
+                        <div class="card-header">
+                            Four Perspectives on Space:
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Introduction</li>
+                            <li class="list-group-item">User Data Input</li>
+                            <li class="list-group-item">Formal</li>
+                            <li class="list-group-item">Sociopolitical</li>
+                            <li class="list-group-item">Phenomenological</li>
+                            <li class="list-group-item">Intuitive</li>
+                            <li class="list-group-item list-group-item-action active">Final Questions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col md-6">
+                    <div class="card my-2">
+                        <div class="card-body">
+                            <div class="card-header"><h4><strong>Final Questions:</strong></h4></div>
+                                <div class="card-text">
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {% if 'information_error' in message.tags %}
+                                                <div class="alert alert-danger" role="alert">
+                                                    <strong>{{ message }}</strong>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {% if 'information_warning' in message.tags %}
+                                                <div class="alert alert-warning" role="alert">
+                                                    <strong>{{ message }}</strong>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {% if 'information_success' in message.tags %}
+                                                <div class="alert alert-success" role="alert">
+                                                    <strong>{{ message }}</strong>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    <p>
+                                        <br/>Finally, please rate <strong>how difficult the different tasks</strong> were for you and how helpful the AI was.
+                                        For this, please <strong>rate the complexity</strong> of all 4 different tasks on a level between 1 (very easy) to 5 (very hard).
+                                    </p>
+
+
+                                    <h6><u>Please <strong>rate the complexity</strong> of the different tasks:</u></h6>
+
+                                    <form action="" method="POST" enctype="application/x-www-form-urlencoded">
+                                        {% csrf_token %}
+                                        <select class="form-select m-3" name="FormalComplexity">
+                                            <option selected>Please rate the complexity of the formal task (maps of postal code areas)</option>
+                                            <option value="1">1: Low Complexity</option>
+                                            <option value="2">2: Medium-Low Complexity</option>
+                                            <option value="3">3: Medium Complexity</option>
+                                            <option value="4">4: Medium-High Complexity</option>
+                                            <option value="5">5: High Complexity</option>
+                                        </select>
+                                        <select class="form-select m-3" name="SocialComplexity">
+                                            <option selected>Please rate the complexity of the social task (rural vs. urban areas)</option>
+                                            <option value="1">1: Low Complexity</option>
+                                            <option value="2">2: Medium-Low Complexity</option>
+                                            <option value="3">3: Medium Complexity</option>
+                                            <option value="4">4: Medium-High Complexity</option>
+                                            <option value="5">5: High Complexity</option>
+                                        </select>
+                                        <select class="form-select m-3" name="PhenoComplexity">
+                                            <option selected>Please rate the complexity of the phenomenological task (Find the correct city)</option>
+                                            <option value="1">1: Low Complexity</option>
+                                            <option value="2">2: Medium-Low Complexity</option>
+                                            <option value="3">3: Medium Complexity</option>
+                                            <option value="4">4: Medium-High Complexity</option>
+                                            <option value="5">5: High Complexity</option>
+                                        </select>
+                                        <select class="form-select m-3" name="IntuitiveComplexity">
+                                            <option selected>Please rate the complexity of the intuitive task (population density of StreetView images)</option>
+                                            <option value="1">1: Low Complexity</option>
+                                            <option value="2">2: Medium-Low Complexity</option>
+                                            <option value="3">3: Medium Complexity</option>
+                                            <option value="4">4: Medium-High Complexity</option>
+                                            <option value="5">5: High Complexity</option>
+                                        </select>
+                                        {% if experiment_group == 'human_delegate' or experiment_group == 'feedback' or experiment_group == 'delegation_counter' %}
+                                            <h6>
+                                                <u>Lastly, please state your opinion. <strong>How helpful was the AI</strong> overall in completing the tasks?</u>
+                                                <br/><br/>Even without knowing how the AI answered. Did you feel confident to solve the tasks on your own? Or did
+                                                it feel like the AI helped you in solving the different tasks? Please provide one single answer.
+                                            </h6>
+                                            <select class="form-select m-3" name="PerceivedHelp">
+                                                <option selected>How helpful was the AI?</option>
+                                                <option value="1">1: Low Helpfulness</option>
+                                                <option value="2">2: Medium-Low Helpfulness</option>
+                                                <option value="3">3: Medium Helpfulness</option>
+                                                <option value="4">4: Medium-High Helpfulness</option>
+                                                <option value="5">5: High Helpfulness</option>
+                                            </select>
+                                        {% endif %}
+                                        <p> If you are an MTurk worker, you can find your survey completion code here. Please copy it.
+                                            <strong>Then push the submit button at the bottom of the screen</strong> to submit your final answers.
+                                            Lastly, paste the code in the appropriate field on MTurk. (If you are not an MTurk worker, this is unimportant for you)
+                                            <br/><br/><strong>Survey Code:</strong><h5>{{survey_code}}</h5>
+                                        </p>
+
+                                        <p>
+                                            If you have completed all the questions, push the submit button to send the data.
+                                            This is the end of the experiment. Thank you very much for your participation!
+                                        </p>
+                                        <div class="form-group mb-3">
+                                            <div class="col-sm-6">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>

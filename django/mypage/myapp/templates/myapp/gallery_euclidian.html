@@ -1,0 +1,332 @@
+{% load analytical %}
+{{ '<' }}{{ '!DOCTYPE html>' }}
+
+<html lang="en">
+
+<head>
+    {% analytical_head_top %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Euclidian</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <style>
+        .image-thumbnail {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+    {% analytical_head_bottom %}
+</head>
+
+<body class="m-5" style="background-color: white">
+    {% analytical_body_top %}
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-3">
+                <div class="card my-2">
+                    <div class="card-header">
+                        Four Perspectives on Space:
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Introduction</li>
+                        <li class="list-group-item">User Data Input</li>
+                        <li class="list-group-item list-group-item-action active">Formal</li>
+                        <li class="list-group-item">Sociopolitical</li>
+                        <li class="list-group-item">Phenomenological</li>
+                        <li class="list-group-item">Intuitive</li>
+                        <li class="list-group-item">Final Questions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col md-6">
+                <div class="card my-2">
+                    <div class="card-body">
+                        <div class="card-header"><h4><strong>The Formal Perspective on Space</strong></h4></div>
+                            <div class="card-text">
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {% if 'information_error' in message.tags %}
+                                            <div class="alert alert-danger" role="alert">
+                                                <strong>{{ message }}</strong>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {% if 'information_warning' in message.tags %}
+                                            <div class="alert alert-warning" role="alert">
+                                                <strong>{{ message }}</strong>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {% if 'information_success' in message.tags %}
+                                            <div class="alert alert-success" role="alert">
+                                                <strong>{{ message }}</strong>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {% if 'feedback_error' in message.tags %}
+                                            <div class="alert alert-danger" role="alert">
+                                                <strong>{{ message }}</strong>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {% if 'feedback_info' in message.tags %}
+                                            <div class="alert alert-info" role="alert">
+                                                <strong>{{ message }}</strong>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {% if 'feedback_success' in message.tags %}
+                                            <div class="alert alert-success" role="alert">
+                                                <strong>{{ message }}</strong>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+
+                                <p>
+                                    <br/>In this experiment, you see maps of <strong>different german postal code areas</strong>.
+                                    Your task is to guess the <strong>population density</strong> of the different areas shown.
+                                    There are three options: <strong>High</strong> population density, <strong>medium</strong> population density, and <strong>low</strong> population density.
+                                    Your goal is to classify as many images as possible correctly.
+                                </p>
+                                    {% if experiment_group == 'feedback' or experiment_group == 'human_delegate' or experiment_group == 'delegation_counter' %}
+                                        <p>
+                                        In case you are unsure or if you think a certain task is easy for the AI, then there is the option to <strong>delegate the task to the AI</strong>,
+                                        which will answer the question for you. Just like you, the AI can answer correctly or incorrectly.
+                                        </p>
+                                    {% endif %}
+                                    {% if experiment_group == 'delegation_counter' %}
+                                        <p>
+                                            Additionally, <strong>you can see the delegation rate for each image</strong>. This shows you how many
+                                            percent of the users have chosen to delegate a certain image to the AI in the past.
+                                        </p>
+                                    {% endif %}
+                                <p>
+                                    If necessary, click on "View" to enlarge the image.
+                                    When you are done and selected all your guesses just click on "Submit and Next" at the bottom of the page to send your answers
+                                    and to proceed to the next experiment.
+                                </p>
+
+                                <p>
+                                    <u>Some information about the maps:</u>
+                                    <br/>Green represents buildings (i.e. houses, shops, airports, production plants and so on).<br/>
+                                    Red and Yellow lines represent streets of different categories.
+                                    <br/>Grey lines represent paths for pedestrians.<br/>
+                                    Dark Blue lines represent highways.
+                                    <br/>Purple lines represent rail tracks.<br/>
+                                    Light Blue lines represents the borders of water (rivers, lakes and so on).
+                                </p>
+
+                                {% if experiment_group == 'feedback' %}
+                                    <p>
+                                        Please decide which category you think is the correct one and then press the submit button.
+                                        You will then get feedback. If you answered the question yourself, you will see whether you answered correctly or not.
+                                        If you let the AI answer the question for you, you will see whether the AI answered correctly or not.
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    {% if experiment_group == 'human_delegate' or experiment_group == 'base' or experiment_group == 'ai_delegate' or experiment_group == 'delegation_counter' %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="container">
+                <div class="row">
+                    {% if experiment_group == 'base' or experiment_group == 'human_delegate' or experiment_group == 'delegation_counter' %}
+                        {% for image in images_formal %}
+
+                        <div class="col-md-3">
+                            <div class="card my-4">
+                                <img src={{image.image.url}} class="image-thumbnail" alt="...">
+                                    <a href="{% url 'view_image' image.id %}" class="btn btn-outline-dark btn-sm m-1">
+                                        View
+                                    </a>
+                                {% if experiment_group == 'human_delegate' or experiment_group == 'delegation_counter' %}
+                                    {% if experiment_group == 'delegation_counter' %}
+                                        {% if image.nr_delegated == 0 %}
+                                            <div class="card m-1">
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        <strong>No delegation rate</strong><br/> for this image yet
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="card m-1">
+                                                <div class="card-body">
+                                                    <p class="card-text">
+                                                        <strong>{% widthratio image.nr_delegated image.nr_seen 100 %}% of participants</strong><br/> delegated this image
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% for answer in answers_formal_delegate %}
+                                        <div class="form-check">
+                                            <input class="form-check-input mr-1" type="radio" name={{image.name}} id={{image.name}}_{{answer.pk}}_delegate value="{{answer.text}}">
+                                            <label class="form-check-label" for="{{image.name}}_{{answer.pk}}_delegate">
+                                                {% if answer.text == 'delegate to the AI' %}
+                                                    <strong>{{answer.text}}</strong>
+                                                {% else %}
+                                                    {{answer.text}}
+                                                {% endif %}
+                                            </label>
+                                        </div>
+                                    {% empty %}
+                                        <h3>No answers available.</h3>
+                                    {% endfor %}
+                                {% elif experiment_group == 'base' %}
+                                    {% for answer in answers_formal_base %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name={{image.name}} id={{image.name}}_{{answer.pk}}_base value="{{answer.text}}">
+                                        <label class="form-check-label" for="{{image.name}}_{{answer.pk}}_base">
+                                            {{answer.text}}
+                                        </label>
+                                    </div>
+                                    {% empty %}
+                                    <h3>No answers available.</h3>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% empty %}
+                        <h3>No images available.</h3>
+                        {% endfor %}
+                    {% elif experiment_group == 'ai_delegate' %}
+                        {% for image in images_formal %}
+
+                        <div class="col-md-3">
+                            <div class="card my-4">
+                                <img src={{image.image.url}} class="image-thumbnail" alt="...">
+                                    <a href="{% url 'view_image' image.id %}" class="btn btn-outline-dark btn-sm m-1">
+                                        View
+                                    </a>
+                                    {% for answer in answers_formal_base %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name={{image.name}} id={{image.name}}_{{answer.pk}}_ai_delegate value="{{answer.text}}">
+                                        <label class="form-check-label" for="{{image.name}}_{{answer.pk}}_ai_delegate">
+                                            {{answer.text}}
+                                        </label>
+                                    </div>
+                                    {% empty %}
+                                    <h3>No answers available.</h3>
+                                    {% endfor %}
+                            </div>
+                        </div>
+                        {% empty %}
+                        <h3>No images available.</h3>
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+                <p>
+                    If you have completed all the questions,
+                    push the "submit and next" button to send the data and to proceed to the next experiment.
+                </p>
+
+                <div class="form-group mb-3">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-primary">Submit and Next</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+    {% elif experiment_group == 'feedback' %}
+            <div class="container">
+                <div class="row">
+                    {% for image in images_formal %}
+                        <div class="col-md-3">
+                            <div class="card my-4">
+                                <img src={{image.image.url}} class="image-thumbnail" alt="...">
+                                    <a href="{% url 'view_image' image.id %}" class="btn btn-outline-dark btn-sm m-1">
+                                        View
+                                    </a>
+                                    {% for answer in answers_formal_delegate %}
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="{{image.name}}_{{forloop.parentloop.counter}}" id="{{image.name}}_{{answer.pk}}_feedback" value="{{answer.text}}">
+                                            <label class="form-check-label" for="{{image.name}}_{{answer.pk}}_feedback">
+                                                {% if answer.text == 'delegate to the AI' %}
+                                                    <strong>{{answer.text}}</strong>
+                                                {% else %}
+                                                    {{answer.text}}
+                                                {% endif %}
+                                            </label>
+                                        </div>
+                                    {% empty %}
+                                        <h3>No answers available.</h3>
+                                    {% endfor %}
+                                        <div class="form-group mb-3">
+                                            <div class="col-sm-6">
+                                                <button type="submit" id="btn-{{forloop.counter}}" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                        <h6 class="text-success text-center"></h6>
+                                    </form>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <h3>No images available.</h3>
+                    {% endfor %}
+                </div>
+                <p>
+                    If you have completed all the questions and submitted all your answers,
+                    push the "Next" button to proceed to the next experiment.
+                </p>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group mb-3">
+                        <div class="col-sm-6">
+                            <button type="submit" name='feedback_final_submit_formal' class="btn btn-primary">Next</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    {% analytical_body_bottom %}
+</body>
+
+</html>

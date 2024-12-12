@@ -1,0 +1,157 @@
+{% load analytical %}
+{{ '<' }}{{ '!DOCTYPE html>' }}
+
+<html lang="en">
+
+<head>
+    {% analytical_head_top %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Update model fields</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    {% analytical_head_bottom %}
+</head>
+
+<body class="m-5">
+    {% analytical_body_top %}
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="card my-2">
+                        <div class="card-header">
+                            Four Perspectives on Space:
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Introduction</li>
+                            <li class="list-group-item list-group-item-action active">User Data Input</li>
+                            <li class="list-group-item">Formal</li>
+                            <li class="list-group-item">Sociopolitical</li>
+                            <li class="list-group-item">Phenomenological</li>
+                            <li class="list-group-item">Intuitive</li>
+                            <li class="list-group-item">Final Questions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col md-6">
+                    <div class="card my-2">
+                        <div class="card-body">
+                            <div class="card-header"><h4><strong>User Data Input:</strong></h4></div>
+                                <div class="card-text">
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {% if 'information_error' in message.tags %}
+                                                <div class="alert alert-danger" role="alert">
+                                                    <strong>{{ message }}</strong>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {% if 'information_warning' in message.tags %}
+                                                <div class="alert alert-warning" role="alert">
+                                                    <strong>{{ message }}</strong>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {% if 'information_success' in message.tags %}
+                                                <div class="alert alert-success" role="alert">
+                                                    <strong>{{ message }}</strong>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <p>
+                                        <br/>Before we start with the different experiments, we will ask you a couple of general questions first.
+                                        Please answer them with care. In addition to that,
+                                        we will ask you to answer one simple question to ensure that a human, and not a bot,
+                                        participates.
+                                        Please also answer this question correctly, otherwise <strong>your results will not count</strong>.
+                                    </p>
+
+                                    <h6><u>1. Questions about yourself:</u> </h6>
+
+                                    <form action="" method="POST" enctype="application/x-www-form-urlencoded">
+                                        {% csrf_token %}
+                                        <p><br/>Please state your gender:</p>
+                                        <select class="form-select mb-3" name="Gender">
+                                            <option selected>Gender:</option>
+                                            <option value="male">male</option>
+                                            <option value="female">female</option>
+                                            <option value="other">other(diverse)</option>
+                                        </select>
+
+                                        <div class="form-group mb-3">
+                                            <label for="inputAge3" class="col-m-2 col-form-label">Please provide your <strong>age as an integer</strong>:</label>
+                                            <div class="col-sm-6">
+                                                <input type="number" class="form-control" name="inputAge" id="inputAge3" placeholder="Age">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="inputCountry3" class="col-m-2 col-form-label">Please provide the <strong>English spelling</strong> of your <strong>home country</strong>:</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" name="inputCountry" id="inputCountry3" placeholder="Country">
+                                            </div>
+                                        </div>
+                                        <fieldset class="form-group mb-3">
+                                            <p>Please rate your <strong>prior knowledge about AI</strong>:</p>
+                                            <select class="form-select mb-3" name="Competency">
+                                                <option selected>Please rate your prior knowledge:</option>
+                                                <option value="High">High: You have some work or project related experience</option>
+                                                <option value="Medium">Medium: You informed yourself in news articles or similar, but you never worked with AI</option>
+                                                <option value="Low">Low: You have little knowledge about AI</option>
+                                            </select>
+                                        </fieldset>
+                                        {% if experiment_group == 'feedback' or experiment_group == 'human_delegate' or experiment_group == 'delegation_counter' %}
+                                        <p> Now finally please rate your <strong>expectations of the AI</strong>. What do you think? How well will the AI perform?</p>
+                                            <select class="form-select mb-3" name="Expectations">
+                                                <option selected>Please rate your expectations for the AI</option>
+                                                <option value="1">1: Low Expectations</option>
+                                                <option value="2">2: Medium-Low Expectations</option>
+                                                <option value="3">3: Medium Expectations</option>
+                                                <option value="4">4: Medium-High Expectations</option>
+                                                <option value="5">5: High Expectations</option>
+                                            </select>
+                                        {% endif %}
+
+                                        <h6><br/><u>2. Test question to prevent bots:</u></h6>
+
+                                        <div class="form-group mb-3">
+                                            <label for="inputBOT3" class="col-m-2 col-form-label">How many <strong>legs does a dog typically have</strong>? Please provide the answer as <strong>an integer</strong>:</label>
+                                            <div class="col-sm-6">
+                                                <input type="number" class="form-control" name="inputBOT" id="inputBOT3" placeholder="Provide a single number">
+                                            </div>
+                                        </div>
+
+                                        <p>
+                                            If you have completed all the questions, push the submit button to send the data
+                                            and to proceed to the first experiment.
+                                        </p>
+
+                                        <div class="form-group mb-3">
+                                            <div class="col-sm-6">
+                                                <button type="submit" class="btn btn-primary">Submit and Next</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    {% analytical_body_bottom %}
+</body>

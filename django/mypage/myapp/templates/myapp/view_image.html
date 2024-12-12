@@ -1,0 +1,33 @@
+{% load analytical %}
+{{ '<' }}{{ '!DOCTYPE html>' }}
+
+<html lang="en">
+
+<head>
+    {% analytical_head_top %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>view_image</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    {% analytical_head_bottom %}
+</head>
+
+<body class="m-5">
+    {% analytical_body_top %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                <p> To go back to the experiment please use the "back" button of your browser in the upper left corner.</p>
+                <div style="height: 90vh;">
+                    <img style="max-width: 100%; max-height: 100%" src="{{image.image.url}}">
+                </div>
+            </div>
+        </div>
+    </div>
+    {% analytical_body_bottom %}
+</body>
+
+</html>
